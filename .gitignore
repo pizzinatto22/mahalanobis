@@ -1,0 +1,4 @@
+.DS_Store
+README.TXT
+*.pyc*
+__pycache__/
