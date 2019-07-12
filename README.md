@@ -3,6 +3,9 @@ Image pattern recognition with Mahalanobis &amp; Euclidean distances
 
 # Authors
 Luiz Eduardo Pizzinatto
+
+&
+
 Bruno Martins Crocomo
 
 # Execution
