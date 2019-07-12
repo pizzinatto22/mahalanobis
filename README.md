@@ -1,6 +1,10 @@
 # mahalanobis
 Image pattern recognition with Mahalanobis &amp; Euclidean distances
 
+# Authors
+Luiz Eduardo Pizzinatto
+Bruno Martins Crocomo
+
 # Execution
 `python Main.py`
 
@@ -23,7 +27,7 @@ Two tests bellow, selecting some black tshirt pixels. Again, Mahalanobis distanc
 
 # Infos
 ## Mahalanobis distance
-From the small pattern select (a couple of pixels), the covariance inverse matrix is calculated from RED, GREEN and BLUE from each pixel. Hence, Mahalanobis distance is made as follows:
+From the small pattern selected (a couple of pixels), the covariance inverse matrix is calculated from each pixel RED, GREEN and BLUE components. Hence, Mahalanobis distance is made as follows:
 ```
 	distance = (x-y) * A^(-1) * (x-y)T
 ```
