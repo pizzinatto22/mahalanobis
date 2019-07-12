@@ -1,45 +1,49 @@
 # mahalanobis
 Image pattern recognition with Mahalanobis &amp; Euclidean distances
 
-#Execution
+# Execution
 `python Main.py`
 
-#Usage
+# Usage
 * Load an image
-* Select (in that image square) a pattern color to recognize (change radius for thicker/larger lines)
+* Select (in that image square) a small pattern color to recognize (change radius for thicker/larger lines)
 * Define any _threshold_ (between 0 and 255)
 * Choose any distance as Mahalanobis or Euclidean
 * Press test
 * Check _average color_ value, play with threshold and re-test to check new results
 
-#Examples
-Two tests bellow, selecting some forehead pixels as patter. As you can see, Mahalanobis distance is more accurate to detect the same patten.
+# Examples
+Two tests bellow, selecting some forehead pixels as pattern. As you can see, Mahalanobis distance is more accurate to detect the same pattern.
 ![forehead test for euclidean distance](/img/forehead_euclidean.png)
 ![forehead test for mahalanobis distance](/img/forehead_mahalanobis.png)
 
-Two tests bellow, selectin some black tshirt pixels. Again, Mahalanobis distance os ,pre accurate then Euclidean distance.
+Two tests bellow, selecting some black tshirt pixels. Again, Mahalanobis distance is more accurate than Euclidean distance.
 ![tshirt test for euclidean distance](/img/tshirt_euclidean.png)
 ![tshirt test for mahalanobis distance](/img/tshirt_mahalanobis.png)
 
-#Infos
-##Mahalanobis distance
-A partir das amostras selecianas, é criada inversa da matrix de covariância das variáveis RED, GREEN e BLUE
-de cada amostra. A partir dessa matrix, o cálculo da distância de mahalanobis é feito da seguinte maneira
-    distancia = (x-y) * A^(-1) * (x-y)T
-x é o elemento que se deseja calcular a distância (com seus próprios RED, GREEN, BLUE)
-y é o elemento médio das amostras de base, (isto é, um elemento com a média das variáveis RED, GREEN, BLUE
-  selecionadas como padrões de interesse)
-A^(-1) é a inversa da matriz de covariância dos padrões de interesse
+# Infos
+## Mahalanobis distance
+From the small pattern select (a couple of pixels), the covariance inverse matrix is calculated from RED, GREEN and BLUE from each pixel. Hence, Mahalanobis distance is made as follows:
+```
+	distance = (x-y) * A^(-1) * (x-y)T
+```
 
-Esse valor de distância foi normalizado através da expressão:
-normalizada = exp(-distância) * 255
+where:
+```
+    x is the element we want to discover the distance (with its own RED, GREEN, BLUE values)
+    y is the average basis element, (i.e. an element with average RED, GREEN, BLUE value  from all selected patterns)
+    A^(-1) is the covariance inverse matrix from the selected patterns
+```
 
-A distância normalizada foi multiplicada por 255 para gerar uma escala de cinza.
+This `distance` was normalized as:
+```
+	norm = exp(-distance) * 255
+```
 
-Como pequenas distâncias geram grandes valores normalizados, e quando os componentes RGB ficam mais brancos
-quando próximos de 255, então o valor foi invertido para que amostras com pequenas distâncias fiquem mais
-pretos e distâncias mais grandes fiquem mais brancas.
+The multiplication by 255 was made to generate a gray scale.
 
-##Euclidean distance
-A distância euclidiana foi implementada como sendo a distância entre cada pixel da imagem
-original em relação ao centro médio das amostras, sem janelamento.
+As small distances generate large normalized values and when RGB components become more white when near to 255, then `distance` is used as `-distance`. The value was inverted so that samples with small distances become darker and larger distances become whiter.
+
+
+## Euclidean distance
+This was made as being the distance between each pixel from original image in relation to average center of patterns, without windowing.
